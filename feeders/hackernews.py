@@ -11,8 +11,9 @@ import re
 import time
 import urllib2
 
-site      = "http://www.hackerne.ws"
-index     = None
+site            = "http://www.hackerne.ws"
+index           = None
+filter_keywords = [ 'groupon', 'more' ]
 
 def load_index():
     global index
@@ -44,7 +45,11 @@ def is_link(url):
 
     return True
 
+def filter_title(title):
+    for keyword in filter_keywords:
+        if keyword in title.lower(): return False
 
+    return True
 
 def process_tag(tag):
     td       = tag.contents[0]
@@ -71,7 +76,7 @@ def load_stories(links):
             continue 
         if not is_link(tl[1]):
             continue
-        if 'More' == tl[0]:
+        if not filter_title(tl[0]):
             continue
 
         title           = tl[0]
