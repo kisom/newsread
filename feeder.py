@@ -70,6 +70,12 @@ class Feeder:
                 story   = story
                 url     = res[story]['url']
                 ts      = int( res[story]['timestamp'] )
+
+                if 'source' in res[story]:
+                    source  = res[story]['source']
+                else:
+                    source  = feeder.__name__
+
                 try:
                     page    = self._load_url( res[story]['url'] )
                 except urllib2.URLError as e:
@@ -79,7 +85,7 @@ class Feeder:
                     continue
 
                 cur.execute( 'INSERT INTO raw VALUES (?, ?, ?, ?, ?)', 
-                             ( story, ts, url, page, feeder.__name__ )) 
+                             ( story, ts, url, page, source ))
                 self.dbo.commit()
                 cur.close()
 
