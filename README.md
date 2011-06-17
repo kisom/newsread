@@ -8,3 +8,7 @@ research areas:
     * analyzing / quantifying a story    
     * factoring linguistic modality    
 
+dependencies:
+    * python-feedparser
+    * sqlite3 (will likely switch to postgres later on)
+
