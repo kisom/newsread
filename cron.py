@@ -13,6 +13,7 @@ def main( ):
 
     F       = feeder.Feeder( os.path.join(datadir, 'news.db') )
     F.register_feeder('hackernews')
+    F.register_feeder('rssfeed')
 
     F.feed()
 
