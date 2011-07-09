@@ -31,8 +31,10 @@ class Feeder:
     def _load_sites(self):
         # populate the site list
         pass
+    
 
     def _load_url(self, url):
+        # TODO: switch to a front-end for loading html and files
         page = urllib2.urlopen( url ).read() 
 
         try:
@@ -44,8 +46,9 @@ class Feeder:
                 page = page.decode(guess['encoding'])
             except UnicodeDecodeError as e:
                 print e
-                print '[!] failed to decode url!'
-                return None
+                print '[!] failed to decode url - assuming url is a file'
+            except TypeError as e:
+                print 'could not guess encoding, assuming url is a file!'
         return page
 
     def _get_stories(self, feeder):
